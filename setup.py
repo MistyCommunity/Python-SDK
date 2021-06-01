@@ -1,4 +1,9 @@
 from distutils.core import setup
+from os import path
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 requires = [           
           'requests>=2.25.1',
@@ -9,7 +14,7 @@ requires = [
 setup(
   name = 'Misty-SDK',
   packages = ['mistyPy'],
-  version = '0.1',
+  version = '0.1.1',
   license='apache-2.0',
   description = 'Python SDK for Misty 2 Robots',
   long_description=long_description,
