@@ -7,10 +7,9 @@ There is a method generator built in to update the built in methods and availabl
 
 python >= 3.8
 
-### Included in requirements.txt
-requests==2.25.1<br>
-websocket-client==0.57.0<br>
-yapf==0.30.0
+requests>=2.25.1<br>
+websocket-client<=0.57.0<br>
+yapf>=0.30.0
 ___
 ## Updating available commands and events
 After installing the requirements, the first thing that should be done is updating the methods and events using the builtin generator.
