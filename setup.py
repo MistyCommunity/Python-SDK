@@ -12,6 +12,8 @@ setup(
   version = '0.1',
   license='apache-2.0',
   description = 'Python SDK for Misty 2 Robots',
+  long_description=long_description,
+  long_description_content_type='text/markdown',
   author = 'Misty Robotics',
   author_email = 'engineering.admin@mistyrobotics.com',
   url = 'https://www.mistyrobotics.com/',
