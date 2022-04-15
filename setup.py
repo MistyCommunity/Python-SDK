@@ -14,7 +14,7 @@ requires = [
 setup(
   name = 'Misty-SDK',
   packages = ['mistyPy'],
-  version = '0.1.1',
+  version = '0.1.2',
   license='apache-2.0',
   description = 'Python SDK for Misty 2 Robots',
   long_description=long_description,
@@ -31,6 +31,7 @@ setup(
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
   ],
   project_urls={'Documentation': 'https://docs.mistyrobotics.com/',
   'Source': 'https://github.com/MistyCommunity/Python-SDK',

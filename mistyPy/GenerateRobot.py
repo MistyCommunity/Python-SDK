@@ -84,7 +84,8 @@ class Command:
             "Byte[]": "bytes",
             "Byte": "bytes",
             "Single": "float",
-            "GridCell": "GridCell"
+            "GridCell": "GridCell",
+            "Object": "object"
         }
 
         parsed_args = []
