@@ -34,7 +34,6 @@ from requests import request, exceptions
 from os import linesep, path
 from yapf.yapflib.yapf_api import FormatFile
 
-
 class Argument:
     def __init__(self, name: str, value_type: object, nullable: bool, ordinal_number: int):
         self.name = name
@@ -51,7 +50,6 @@ class Argument:
     # To enable sorting arguments by ordinal number
     def __lt__(self, other):
         return self.ordinal_number < other.ordinal_number
-
 
 class Command:
     def __init__(self, name: str, verb: str, endpoint: str, arguments: dict, command_group: str):
@@ -106,6 +104,12 @@ class Command:
 
         return parsed_args
 
+def pythonicate_name(name):
+    name = name[0].lower() + name[1:]
+    for i in range(1, len(name)):
+        if name[i].isupper():
+            name = name[:i] + "_" + name[i].lower() + name[i + 1:]
+    return name
 
 class RobotGenerator:
     def __init__(self, ip: str = "127.0.0.1"):
@@ -122,7 +126,7 @@ class RobotGenerator:
 
         for verb in help_response["result"]:
             for command in help_response["result"][verb]:
-                new_command = Command(command["apiCommand"]["name"], verb, command["endpoint"],
+                new_command = Command(pythonicate_name(command["apiCommand"]["name"]), verb, command["endpoint"],
                                       command["apiCommand"]["arguments"], command["apiCommand"]["apiCommandGroup"])
 
                 commands.append(new_command)
@@ -135,28 +139,27 @@ class RobotGenerator:
 from datetime import datetime
 from collections import namedtuple
 
-
 GridCell = namedtuple('GridCell', ['x', 'y'])
 
 class RobotCommands:
     def __init__(self, ip: str = "127.0.0.1"):
         self.ip = ip
 
-    def _genericRequest(self, verb: str, endpoint: str, **kwargs):
+    def _generic_request(self, verb: str, endpoint: str, **kwargs):
         url = "http://" + self.ip + "/api/" + endpoint
         return request(verb, url, **kwargs)
 
-    def GetRequest(self, endpoint: str, **kwargs):
-        return self._genericRequest("get", endpoint, **kwargs)
+    def get_request(self, endpoint: str, **kwargs):
+        return self._generic_request("get", endpoint, **kwargs)
 
-    def PostRequest(self, endpoint: str, **kwargs):
-        return self._genericRequest("post", endpoint, **kwargs)
+    def post_request(self, endpoint: str, **kwargs):
+        return self._generic_request("post", endpoint, **kwargs)
 
-    def DeleteRequest(self, endpoint: str, **kwargs):
-        return self._genericRequest("delete", endpoint, **kwargs)
+    def delete_request(self, endpoint: str, **kwargs):
+        return self._generic_request("delete", endpoint, **kwargs)
     
-    def PutRequest(self, endpoint: str, **kwargs):
-        return self._genericRequest("put", endpoint, **kwargs)
+    def put_request(self, endpoint: str, **kwargs):
+        return self._generic_request("put", endpoint, **kwargs)
 
 #####################################################
 #
@@ -179,10 +182,10 @@ class RobotCommands:
 
         :type command: Command
         """
-        verb_switch = {"get": "GetRequest",
-                       "post": "PostRequest",
-                       "delete": "DeleteRequest",
-                       "put": "PutRequest"}
+        verb_switch = {"get": "get_request",
+                       "post": "post_request",
+                       "delete": "delete_request",
+                       "put": "put_request"}
 
         method_arguments = self.parse_arguments_into_kwargs(command.arguments)
 
@@ -251,7 +254,6 @@ try:
 except ImportError:
     import _thread as thread
 from random import randint
-
 
 class Events:
 

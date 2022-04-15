@@ -8,7 +8,6 @@ def event_filter(name: str, comparison_operator: str, comparison_value):
     """
     return {"Property": name, "Inequality": comparison_operator, "Value": comparison_value}
 
-
 class EventFilters(object):
 
     @staticmethod

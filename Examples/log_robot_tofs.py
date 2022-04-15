@@ -56,21 +56,21 @@ if __name__ == "__main__":
 
     try:
         # Subscribe to the tofs individually so each message from each tof is written to a new line
-        front_right = misty_robot.RegisterEvent("frontright", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.FrontRight], keep_alive=True, callback_function=log_tof_reading, debounce=5)
-        front_center = misty_robot.RegisterEvent("frontcenter", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.FrontCenter], keep_alive=True, callback_function=log_tof_reading, debounce=5)
-        front_left = misty_robot.RegisterEvent("frontleft", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.FrontLeft], keep_alive=True, callback_function=log_tof_reading, debounce=5)
-        back_range = misty_robot.RegisterEvent("back", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.Back], keep_alive=True, callback_function=log_tof_reading, debounce=5)
-        down_front_right = misty_robot.RegisterEvent("downfrontright", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardFrontRight], keep_alive=True, callback_function=log_tof_reading, debounce=5)
-        down_front_left = misty_robot.RegisterEvent("downfrontleft", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardFrontLeft], keep_alive=True, callback_function=log_tof_reading, debounce=5)
-        down_back_right = misty_robot.RegisterEvent("downbackright", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardBackRight], keep_alive=True, callback_function=log_tof_reading, debounce=5)
-        down_back_left = misty_robot.RegisterEvent("downbackleft", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardBackLeft], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        front_right = misty_robot.register_event("frontright", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.FrontRight], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        front_center = misty_robot.register_event("frontcenter", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.FrontCenter], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        front_left = misty_robot.register_event("frontleft", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.FrontLeft], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        back_range = misty_robot.register_event("back", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.Back], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        down_front_right = misty_robot.register_event("downfrontright", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardFrontRight], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        down_front_left = misty_robot.register_event("downfrontleft", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardFrontLeft], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        down_back_right = misty_robot.register_event("downbackright", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardBackRight], keep_alive=True, callback_function=log_tof_reading, debounce=5)
+        down_back_left = misty_robot.register_event("downbackleft", Events.TimeOfFlight, condition=[EventFilters.TimeOfFlightPosition.DownwardBackLeft], keep_alive=True, callback_function=log_tof_reading, debounce=5)
 
-        # Use the KeepAlive() function if you want to keep the main thread alive, otherwise the event threads will also get killed once processing has stopped
-        misty_robot.KeepAlive()
+        # Use the keep_alive() function if you want to keep the main thread alive, otherwise the event threads will also get killed once processing has stopped
+        misty_robot.keep_alive()
 
     except Exception as ex:
         print(ex)
     finally:
         f.close()
         # Unregister from all events or the spawned threads won't get killed
-        misty_robot.UnregisterAllEvents()
+        misty_robot.unregister_all_events()

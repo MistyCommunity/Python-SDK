@@ -1,6 +1,6 @@
 # Python SDK
 
-Python library to work with your Misty robot. Currently in BETA. It is designed to follow the same naming conventions that will show up in the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/index.html).
+Python library to work with your Misty robot. Currently in BETA. It is designed to follow a Pythonicated version of the naming convention within the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/index.html).
 There is a method generator built in to update the built in methods and available events, this works on all current Misty II product versions.
 
 ## Requirements
