@@ -1,6 +1,6 @@
 # Python SDK
 
-Python library to work with your Misty robot. Currently in BETA. It is designed to follow the same naming conventions that will show up in the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/index.html).
+Python library to work with your Misty robot. Currently in BETA. It is designed to follow a Pythonicated version of the naming convention within the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/index.html).
 There is a method generator built in to update the built in methods and available events, this works on all current Misty II product versions.
 
 ## Requirements
@@ -36,12 +36,12 @@ if __name__ == "__main__":
 
 Sending the commands uses the REST API for Misty, so every return from a command will be a response object.
 ```
-    current_response = misty.MoveArms(30, 20)
+    current_response = misty.move_arms(30, 20)
     print(current_response)
     print(current_response.status_code)
     print(current_response.json())
 
-    current_response = misty.GetLogLevel()
+    current_response = misty.get_log_level()
     print(current_response)
     print(current_response.status_code)
     print(current_response.json())
@@ -85,19 +85,19 @@ if __name__ == "__main__":
         misty = Robot(ip_address)
 
         # Register the event, which has a minimum of 2 parameters: the user defined name of the event, and the event type
-        misty.RegisterEvent("AudioCallbackEvent", Events.VoiceRecord, callback_function=capture_speech_callback)
+        misty.register_event("AudioCallbackEvent", Events.VoiceRecord, callback_function=capture_speech_callback)
 
         # Start recording speech to get an event message
-        misty.CaptureSpeechAzure(overwriteExisting=True, requireKeyPhrase=False, captureFile=True, speechRecognitionLanguage="en-us", azureSpeechRegion="eastus", azureSpeechKey=my_speech_key)
+        misty.capture_speech_azure(overwriteExisting=True, requireKeyPhrase=False, captureFile=True, speechRecognitionLanguage="en-us", azureSpeechRegion="eastus", azureSpeechKey=my_speech_key)
 
-        # Use the KeepAlive function to keep running the main python thread until all events are closed, or the script is killed due to an exception
-        misty.KeepAlive()
+        # Use the keep_alive function to keep running the main python thread until all events are closed, or the script is killed due to an exception
+        misty.keep_alive()
 
     except Exception as ex:
         print(ex)
     finally:
         # Unregister events if they aren't all unregistered due to an error
-        misty.UnregisterAllEvents()
+        misty.unregister_all_events()
 ```
 Output:
 ```
@@ -113,9 +113,9 @@ if __name__ == "__main__":
         misty = Robot(ip_address)
 
         # Not including the callback_function parameter
-        audio_callback_event = misty.RegisterEvent("AudioCallbackEvent", Events.VoiceRecord)
+        audio_callback_event = misty.register_event("AudioCallbackEvent", Events.VoiceRecord)
 
-        misty.CaptureSpeechAzure(overwriteExisting=True, requireKeyPhrase=False, captureFile=True, speechRecognitionLanguage="en-us", azureSpeechRegion="eastus", azureSpeechKey=my_speech_key)
+        misty.capture_speech_azure(overwriteExisting=True, requireKeyPhrase=False, captureFile=True, speechRecognitionLanguage="en-us", azureSpeechRegion="eastus", azureSpeechKey=my_speech_key)
 
         # Wait for the event to get some data before printing the message
         while "just waiting for data" in str(audio_callback_event.data):
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     except Exception as ex:
         print(ex)
     finally:
-        misty.UnregisterAllEvents()
+        misty.unregister_all_events()
 
 ```
 Output:
@@ -138,17 +138,17 @@ There are built in methods for adding filters to the events. By default there ar
 ```
 from mistyPy.EventFilters import EventFilters
 
-misty.RegisterEvent("right_arm", Events.ActuatorPosition, condition=[EventFilters.ActuatorPosition.ArmRight])
+misty.register_event("right_arm", Events.ActuatorPosition, condition=[EventFilters.ActuatorPosition.ArmRight])
 ```
 
 The condition parameter takes a list of filters to apply, so the event conditions can be combined:
 ```
-front_right = misty_robot.RegisterEvent("frontright", Events.TimeOfFlight,
+front_right = misty_robot.register_event("frontright", Events.TimeOfFlight,
                                         condition=[EventFilters.TimeOfFlightPosition.FrontRight, 
                                                    EventFilters.TimeOfFlightDistance.MaxDistance(0.150),
                                                    EventFilters.TimeOfFlightStatus.MaxStatus(102)])
 ```
 There is also a method to build up your own filters that are not built in yet. The following example shows creating an event filter such that the returned voice record event must have an error code of 0 for the event to be triggered
 ```
-misty.RegisterEvent("found_speech_result", Events.VoiceRecord, condition=[EventFilters.event_filter("errorCode", "=", 0)])
+misty.register_event("found_speech_result", Events.VoiceRecord, condition=[EventFilters.event_filter("errorCode", "=", 0)])
 ```

@@ -35,7 +35,6 @@ from .Events import Event
 from time import sleep
 from requests import exceptions
 
-
 class Robot(RobotCommands):
     def __init__(self, ip):
         self.__determine_ip(ip)
@@ -44,12 +43,12 @@ class Robot(RobotCommands):
     def __determine_ip(self, ip: str):
         try:
             self.ip = "127.0.0.1"
-            self.GetRequest("help")
+            self.get_request("help")
         except exceptions.ConnectionError:
             self.ip = ip
-            self.GetRequest("help")
+            self.get_request("help")
 
-    def RegisterEvent(self, event_name, event_type, condition=None, debounce=0, keep_alive=False, callback_function=None):
+    def register_event(self, event_name, event_type, condition=None, debounce=0, keep_alive=False, callback_function=None):
         if event_name is None or event_name == "":
             print(f"No event_name provided when registering to {event_type} - using default name {event_type}")
             event_name = event_type
@@ -66,7 +65,7 @@ class Robot(RobotCommands):
 
         return new_registration
 
-    def UnregisterEvent(self, event_name):
+    def unregister_event(self, event_name):
         if not event_name in self.active_event_registrations:
             print(f"Not currently registered to event: {event_name}")
             return
@@ -77,16 +76,16 @@ class Robot(RobotCommands):
             pass
         del self.active_event_registrations[event_name]
 
-    def UnregisterAllEvents(self):
+    def unregister_all_events(self):
         initial_event_names = list(self.active_event_registrations.keys())
         for event_name in initial_event_names:
-            self.UnregisterEvent(event_name)
+            self.unregister_event(event_name)
 
-    def GetRegisteredEvents(self):
+    def get_registered_events(self):
         self.__remove_closed_events()
         return self.active_event_registrations.keys()
 
-    def KeepAlive(self):
+    def keep_alive(self):
         while True and len(self.active_event_registrations) > 0:
             self.__remove_closed_events()
             sleep(1)
@@ -100,4 +99,4 @@ class Robot(RobotCommands):
 
         for event_name in events_to_remove:
             print(f"Event connection has closed for event: {event_name}")
-            self.UnregisterEvent(event_name)
+            self.unregister_event(event_name)

@@ -13,13 +13,13 @@ class Events:
 
     available_events = [
         'ActuatorPosition', 'ArTagDetection', 'AudioPlayComplete',
-        'BatteryCharge', 'BumpSensor', 'ChargerPoseMessage',
-        'CriticalStatusMessage', 'DriveEncoders', 'FaceRecognition',
-        'FaceTraining', 'HaltCommand', 'HazardNotification', 'IMU',
-        'KeyPhraseRecognized', 'LocomotionCommand', 'ObjectDetection',
-        'ObstacleMap', 'PRUMessage', 'RfCommMessage', 'RfCommState',
-        'RobotCommandMessage', 'SelfState', 'SerialMessage', 'SkillData',
-        'SkillSystemStateChange', 'SlamStatus', 'SourceFocusConfigMessage',
+        'BatteryCharge', 'BumpSensor', 'CriticalStatusMessage', 'DialogAction',
+        'DriveEncoders', 'FaceRecognition', 'FaceTraining', 'HaltCommand',
+        'HazardNotification', 'IMU', 'KeyPhraseRecognized',
+        'LocomotionCommand', 'ObjectDetection', 'ObstacleMap', 'PRUMessage',
+        'RfCommMessage', 'RfCommState', 'RobotCommandMessage',
+        'RobotInteractionState', 'SelfState', 'SerialMessage', 'SkillData',
+        'SkillSystemStateChange', 'SourceFocusConfigMessage',
         'SourceTrackDataMessage', 'TextToSpeechComplete', 'TimeOfFlight',
         'TouchSensor', 'UserSkillData', 'VoiceRecord', 'WorldState'
     ]
@@ -29,8 +29,8 @@ class Events:
     AudioPlayComplete = 'AudioPlayComplete'
     BatteryCharge = 'BatteryCharge'
     BumpSensor = 'BumpSensor'
-    ChargerPoseMessage = 'ChargerPoseMessage'
     CriticalStatusMessage = 'CriticalStatusMessage'
+    DialogAction = 'DialogAction'
     DriveEncoders = 'DriveEncoders'
     FaceRecognition = 'FaceRecognition'
     FaceTraining = 'FaceTraining'
@@ -45,11 +45,11 @@ class Events:
     RfCommMessage = 'RfCommMessage'
     RfCommState = 'RfCommState'
     RobotCommandMessage = 'RobotCommandMessage'
+    RobotInteractionState = 'RobotInteractionState'
     SelfState = 'SelfState'
     SerialMessage = 'SerialMessage'
     SkillData = 'SkillData'
     SkillSystemStateChange = 'SkillSystemStateChange'
-    SlamStatus = 'SlamStatus'
     SourceFocusConfigMessage = 'SourceFocusConfigMessage'
     SourceTrackDataMessage = 'SourceTrackDataMessage'
     TextToSpeechComplete = 'TextToSpeechComplete'
