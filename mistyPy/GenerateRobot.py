@@ -105,10 +105,20 @@ class Command:
         return parsed_args
 
 def pythonicate_name(name):
-    name = name[0].lower() + name[1:]
-    for i in range(1, len(name)):
+    for i in range(0, len(name)):
         if name[i].isupper():
-            name = name[:i] + "_" + name[i].lower() + name[i + 1:]
+            if i > 0:
+                name = name[:i] + "_" + name[i].lower() + name[i + 1:]
+                i += 2
+            else:
+                name = name[:i] + name[i].lower() + name[i + 1:]
+                i += 1
+            if i < len(name) and name[i].isupper():
+                while i < len(name) and name[i].isupper():
+                    name = name[:i] + name[i].lower() + name[i + 1:]
+                    i += 1
+                if i < len(name):
+                    name = name[:i - 1] + "_" + name[i - 1:]
     return name
 
 class RobotGenerator:
