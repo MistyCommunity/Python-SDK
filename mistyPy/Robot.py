@@ -36,17 +36,9 @@ from time import sleep
 from requests import exceptions
 
 class Robot(RobotCommands):
-    def __init__(self, ip):
-        self.__determine_ip(ip)
+    def __init__(self, ip='127.0.0.1'):
+        self.ip = ip
         self.active_event_registrations = {}
-
-    def __determine_ip(self, ip: str):
-        try:
-            self.ip = "127.0.0.1"
-            self.get_request("help")
-        except exceptions.ConnectionError:
-            self.ip = ip
-            self.get_request("help")
 
     def register_event(self, event_name, event_type, condition=None, debounce=0, keep_alive=False, callback_function=None):
         if event_name is None or event_name == "":
