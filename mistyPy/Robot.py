@@ -40,7 +40,12 @@ class Robot(RobotCommands):
         self.ip = ip
         self.active_event_registrations = {}
 
-    def register_event(self, event_name, event_type, condition=None, debounce=0, keep_alive=False, callback_function=None):
+    def register_event(self, event_type, event_name="", condition=None, debounce=0, keep_alive=False, callback_function=None):
+
+        if callback_function is not None and callback_function.__code__.co_argcount != 1:
+            print("Callback function must have one argument.")
+            return
+
         if event_name is None or event_name == "":
             print(f"No event_name provided when registering to {event_type} - using default name {event_type}")
             event_name = event_type
