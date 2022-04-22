@@ -14,7 +14,7 @@ requires = [
 setup(
   name = 'Misty-SDK',
   packages = ['mistyPy'],
-  version = '1.1.0',
+  version = '0.1.0',
   license='apache-2.0',
   description = 'Python SDK for Misty 2 Robots',
   long_description=long_description,
