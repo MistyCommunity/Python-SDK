@@ -70,7 +70,7 @@ By default all event registrations are set to trigger once then unregister. To s
 
 Example: 
 
-`misty.RegisterEvent("AudioCallbackEvent", Events.VoiceRecord, callback_function=capture_speech_callback, keep_alive=True)`
+`misty.register_event(Events.VoiceRecord, "AudioCallbackEvent", callback_function=capture_speech_callback, keep_alive=True)`
 
 ### Using a callback function
 ```
@@ -85,10 +85,10 @@ if __name__ == "__main__":
         misty = Robot(ip_address)
 
         # Register the event, which has a minimum of 2 parameters: the user defined name of the event, and the event type
-        misty.register_event("AudioCallbackEvent", Events.VoiceRecord, callback_function=capture_speech_callback)
+        misty.register_event(Events.VoiceRecord, "AudioCallbackEvent", callback_function=capture_speech_callback)
 
         # Start recording speech to get an event message
-        misty.capture_speech_azure(overwriteExisting=True, requireKeyPhrase=False, captureFile=True, speechRecognitionLanguage="en-us", azureSpeechRegion="eastus", azureSpeechKey=my_speech_key)
+        misty.capture_speech()
 
         # Use the keep_alive function to keep running the main python thread until all events are closed, or the script is killed due to an exception
         misty.keep_alive()
@@ -113,9 +113,9 @@ if __name__ == "__main__":
         misty = Robot(ip_address)
 
         # Not including the callback_function parameter
-        audio_callback_event = misty.register_event("AudioCallbackEvent", Events.VoiceRecord)
+        audio_callback_event = misty.register_event(Events.VoiceRecord, "AudioCallbackEvent")
 
-        misty.capture_speech_azure(overwriteExisting=True, requireKeyPhrase=False, captureFile=True, speechRecognitionLanguage="en-us", azureSpeechRegion="eastus", azureSpeechKey=my_speech_key)
+        misty.capture_speech()
 
         # Wait for the event to get some data before printing the message
         while "just waiting for data" in str(audio_callback_event.data):
@@ -138,17 +138,17 @@ There are built in methods for adding filters to the events. By default there ar
 ```
 from mistyPy.EventFilters import EventFilters
 
-misty.register_event("right_arm", Events.ActuatorPosition, condition=[EventFilters.ActuatorPosition.ArmRight])
+misty.register_event(Events.ActuatorPosition, "right_arm", condition=[EventFilters.ActuatorPosition.ArmRight])
 ```
 
 The condition parameter takes a list of filters to apply, so the event conditions can be combined:
 ```
-front_right = misty_robot.register_event("frontright", Events.TimeOfFlight,
-                                        condition=[EventFilters.TimeOfFlightPosition.FrontRight, 
-                                                   EventFilters.TimeOfFlightDistance.MaxDistance(0.150),
-                                                   EventFilters.TimeOfFlightStatus.MaxStatus(102)])
+front_right = misty.register_event(Events.TimeOfFlight, "frontright",
+    condition=[EventFilters.TimeOfFlightPosition.FrontRight, 
+    EventFilters.TimeOfFlightDistance.MaxDistance(0.150),
+    EventFilters.TimeOfFlightStatus.MaxStatus(102)])
 ```
 There is also a method to build up your own filters that are not built in yet. The following example shows creating an event filter such that the returned voice record event must have an error code of 0 for the event to be triggered
 ```
-misty.register_event("found_speech_result", Events.VoiceRecord, condition=[EventFilters.event_filter("errorCode", "=", 0)])
+misty.register_event(Events.VoiceRecord, "found_speech_result", condition=[EventFilters.event_filter("errorCode", "=", 0)])
 ```
